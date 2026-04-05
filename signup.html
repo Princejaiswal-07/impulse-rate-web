@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Signup - SmartSpend AI</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background:#071029; }
+    a { color: #3b82f6; }
+  </style>
+</head>
+<body>
+  <div class="signup-card">
+    <h2>Create account</h2>
+    <p>Join SmartSpend AI to track expenses.</p>
+
+    <div class="signup-form">
+      <label>Name</label>
+      <input id="su-name" placeholder="Full name">
+
+      <label>Email</label>
+      <input id="su-email" placeholder="you@example.com" type="email">
+
+      <label>Password</label>
+      <input id="su-password" placeholder="Password" type="password">
+
+      <label>Confirm Password</label>
+      <input id="su-password2" placeholder="Confirm password" type="password">
+
+      <div class="signup-actions">
+        <button class="primary" onclick="registerUser()">Sign up</button>
+        <button onclick="location.href='index.html'">Cancel</button>
+      </div>
+
+      <div id="su-message" class="form-message"></div>
+
+      <p style="margin-top:12px">Already have an account? <a href="index.html">Go to Home</a></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

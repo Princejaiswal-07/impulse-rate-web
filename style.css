@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background: #1e293b;
+}
+
+nav button {
+    background: #334155;
+    color: white;
+}
+
+/* Sections */
+.section {
+    display: none;
+    padding: 30px;
+}
+
+.active {
+    display: block;
+}
+
+/* Card */
+.card {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 15px;
+    width: 350px;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: none;
+    background: #0f172a;
+    color: white;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Special Buttons */
+.primary { background: #3b82f6; }
+.success { background: #22c55e; }
+.danger { background: #ef4444; }
+
+/* 🔥 ALERT FIX (MAIN FIX HERE) */
+#alertBox {
+    display: none;              /* 👈 IMPORTANT FIX */
+    background: #ef4444;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Chart */
+canvas {
+    margin-top: 20px;
+}
+
+/* Signup form styles */
+.signup-card {
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 28px;
+    border-radius: 14px;
+    background: #1e293b;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.signup-card h2 {
+    margin-top: 0;
+}
+
+.signup-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: none;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.signup-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.form-message {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.form-message.success { background:#22c55e; color:#061b11; }
+.form-message.error { background:#ef4444; color:white; }

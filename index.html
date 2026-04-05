@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmartSpend AI</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background: #1e293b;
+}
+
+nav button {
+    background: #334155;
+    color: white;
+}
+
+/* Sections */
+.section {
+    display: none;
+    padding: 30px;
+}
+
+.active {
+    display: block;
+}
+
+/* Card */
+.card {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 15px;
+    width: 350px;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: none;
+    background: #0f172a;
+    color: white;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Special Buttons */
+.primary { background: #3b82f6; }
+.success { background: #22c55e; }
+.danger { background: #ef4444; }
+
+/* Alert */
+#alertBox {
+    display: none;
+    background: #ef4444;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+/* Chart */
+canvas {
+    margin-top: 20px;
+}
+</style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <button class="primary" onclick="showSection('home')">Home</button>
+    <button class="primary" onclick="showSection('dashboard')">Dashboard</button>
+    <button class="primary" onclick="showSection('analysis')">Analysis</button>
+    <button class="primary" onclick="showSection('about')">About</button>
+    <button class="primary" onclick="location.href='signup.html'">Signup</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="section active">
+    <div class="card">
+        <h1>SmartSpend AI 💰</h1>
+        <p>Track your expenses like a pro</p>
+        <button class="primary" onclick="showSection('dashboard')">Start</button>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section">
+    <div class="card">
+
+        <h2>Expense Dashboard</h2>
+
+        <label>Food Name</label>
+        <input id="category" placeholder="Pizza">
+
+        <label>Amount</label>
+        <input id="amount" type="number">
+
+        <button class="success" onclick="addExpense()">Add Expense</button>
+        <button onclick="resetForm()">Reset</button>
+        <button class="danger" onclick="deleteAll()">Delete</button>
+
+        <h3>Total: ₹<span id="total">0</span></h3>
+
+        <div id="alertBox">⚠️ Overspending</div>
+
+    </div>
+</div>
+
+<!-- ANALYSIS -->
+<div id="analysis" class="section">
+    <div class="card">
+        <h2>Spending Analysis</h2>
+        <canvas id="chart"></canvas>
+    </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="section">
+    <div class="card">
+        <h2>About</h2>
+        <p>AI-powered expense tracking system.</p>
+    </div>
+</div>
+
+<script>
+let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+
+    if (id === "analysis") updateChart();
+}
+
+function addExpense() {
+    let category = document.getElementById("category").value;
+    let amount = Number(document.getElementById("amount").value);
+
+    if (!category || !amount) return;
+
+    expenses.push({ category, amount });
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+
+    updateTotal();
+}
+
+function updateTotal() {
+    let total = expenses.reduce((sum, e) => sum + e.amount, 0);
+    document.getElementById("total").innerText = total;
+
+    if (total > 2000) {
+        document.getElementById("alertBox").style.display = "block";
+    }
+}
+
+function resetForm() {
+    document.getElementById("category").value = "";
+    document.getElementById("amount").value = "";
+}
+
+function deleteAll() {
+    expenses = [];
+    localStorage.removeItem("expenses");
+    updateTotal();
+}
+
+function updateChart() {
+    let data = {};
+
+    expenses.forEach(e => {
+        if (!data[e.category]) data[e.category] = 0;
+        data[e.category] += e.amount;
+    });
+
+    let ctx = document.getElementById("chart").getContext("2d");
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(data),
+            datasets: [{
+                data: Object.values(data),
+                backgroundColor: ["#3b82f6","#22c55e","#ef4444","#facc15"]
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "#e2e8f0"
+                    }
+                }
+            }
+        }
+    });
+}
+
+updateTotal();
+</script>
+
+</body>
+</html>
